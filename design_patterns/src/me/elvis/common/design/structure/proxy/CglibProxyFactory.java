@@ -1,3 +1,4 @@
+
 package me.elvis.common.design.structure.proxy;
 
 import net.sf.cglib.proxy.Enhancer;
