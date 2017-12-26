@@ -1,11 +1,16 @@
 package me.elvis.collection;
 
+import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.RandomAccess;
+import java.util.Set;
+import java.util.TreeSet;
 
 import me.elvis.test.TestEfficiency;
 
@@ -24,6 +29,20 @@ public class Ergodic<E> {
 			instance = new Ergodic<String>();
 		}
 		return instance;
+	}
+
+	public void printAllUsingForEach(Set<E> set) {
+		for (E e : set) {
+			System.out.print(e);
+		}
+		System.out.println();
+	}
+
+	public void printAllUsingIterator(Set<E> set) {
+		for (Iterator iterator = set.iterator(); iterator.hasNext(); ) {
+			System.out.print(iterator.next());
+		}
+		System.out.println();
 	}
 
 	public void printAllUsingForEach(List<E> list) {
@@ -61,7 +80,44 @@ public class Ergodic<E> {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static String getListErgodicRunningTime(String methodName, Object param) {
+		String str = null;
+		try {
+			str = TestEfficiency.getRunTimeResults(getInstance(),
+					Ergodic.class.getMethod(methodName, List.class), param);
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
+
+	@Test
+	public void test2() {
+		Set<String> hashSet = new HashSet<String>() {{
+			add("张三");
+			add("李四");
+			add("王五");
+		}};
+
+		Set<String> treeSet = new TreeSet<String>(){{
+			add("张三");
+			add("李四");
+			add("王五");
+		}};
+
+		getInstance().printAllUsingIterator(hashSet);
+		getInstance().printAllUsingIterator(treeSet);
+
+		getInstance().printAllUsingForEach(hashSet);
+		getInstance().printAllUsingForEach(treeSet);
+	}
+
+	@Test
+	public void test1() {
 		List<String> orderList = new ArrayList<String>() {{
 			add("张三");
 			add("李四");
@@ -79,7 +135,7 @@ public class Ergodic<E> {
 			randomList.add("张三");
 		}
 
-			Ergodic<String> ergodic = getInstance();
+		Ergodic<String> ergodic = getInstance();
 		//		ergodic.printAllUsingFor(orderList);
 		//		ergodic.printAllUsingFor(randomList);
 		//		ergodic.printAllUsingForEach(orderList);
@@ -102,21 +158,6 @@ public class Ergodic<E> {
 
 		//		ergodic.printAll(orderList);
 		//		ergodic.printAll(randomList);
-	}
-
-	public static String getListErgodicRunningTime(String methodName, Object param) {
-		String str = null;
-		try {
-			str = TestEfficiency.getRunTimeResults(getInstance(),
-					Ergodic.class.getMethod(methodName, List.class), param);
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		return str;
 	}
 
 }
