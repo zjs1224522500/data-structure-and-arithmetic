@@ -1,16 +1,22 @@
 package me.elvis.collection;
 
+import com.sun.corba.se.spi.ior.ObjectKey;
+
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.RandomAccess;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.swing.*;
 
 import me.elvis.test.TestEfficiency;
 
@@ -29,6 +35,47 @@ public class Ergodic<E> {
 			instance = new Ergodic<String>();
 		}
 		return instance;
+	}
+
+	public void printAllUsingForEach(Map<E, Object> map) {
+		for (Map.Entry<E, Object> entry : map.entrySet()) {
+			System.out.println("key = " + entry.getKey() + ";value = " + entry.getValue());
+		}
+	}
+
+	public void printAllUsingIteratorOne(Map<E, Object> map) {
+		for (Iterator iterator = map.entrySet().iterator(); iterator.hasNext(); ) {
+
+			// 需要强转，遍历器返回的类型为 Object
+			Map.Entry<E, Object> entry = (Map.Entry) iterator.next();
+			System.out.println("key = " + entry.getKey() + "; value = " + entry.getValue());
+		}
+
+	}
+
+	public void printAllUsingIteratorTwo(Map<E, Object> map) {
+		for (Iterator<Map.Entry<E, Object>> iterator = map.entrySet().iterator(); iterator
+				.hasNext(); ) {
+			// 不需要强转，由于返回类型同 获得的遍历器 泛型一致
+			Map.Entry<E, Object> entry = iterator.next();
+			System.out.println("key = " + entry.getKey() + "; value = " + entry.getValue());
+		}
+	}
+
+	public void printAllUsingKeySet(Map<E, Object> map) {
+		for (E e : map.keySet()) {
+			System.out.println("key = " + e + ";value = " + map.get(e));
+		}
+	}
+
+	public void printKeySetAndValueSet(Map<E, Object> map) {
+		for (E e : map.keySet()) {
+			System.out.println("keys = " + e);
+		}
+
+		for (Object value : map.values()) {
+			System.out.println("values = " + value);
+		}
 	}
 
 	public void printAllUsingForEach(Set<E> set) {
@@ -96,6 +143,31 @@ public class Ergodic<E> {
 	}
 
 	@Test
+	public void test3() {
+		Map<String, Object> map = new HashMap<String, Object>() {{
+			put("张三", new EnglishName("zhangsan"));
+			put("李四",new EnglishName("lisi"));
+			put("王五",new EnglishName("wangwu"));
+		}};
+		getInstance().printAllUsingIteratorOne(map);
+		getInstance().printAllUsingForEach(map);
+
+	}
+
+	class EnglishName{
+		private String englishName;
+
+		public EnglishName(String englishName) {
+			this.englishName = englishName;
+		}
+
+		@Override
+		public String toString() {
+			return "EnglishName{" + "englishName='" + englishName + '\'' + '}';
+		}
+	}
+
+	@Test
 	public void test2() {
 		Set<String> hashSet = new HashSet<String>() {{
 			add("张三");
@@ -103,7 +175,7 @@ public class Ergodic<E> {
 			add("王五");
 		}};
 
-		Set<String> treeSet = new TreeSet<String>(){{
+		Set<String> treeSet = new TreeSet<String>() {{
 			add("张三");
 			add("李四");
 			add("王五");
