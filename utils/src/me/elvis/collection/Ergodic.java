@@ -34,7 +34,7 @@ public class Ergodic<E> {
 	}
 
 	public void printAllUsingFor(List<E> list) {
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0, size = list.size(); i < size; i++) {
 			System.out.print(list.get(i));
 		}
 		System.out.println();
@@ -50,10 +50,11 @@ public class Ergodic<E> {
 
 	/**
 	 * 判断list是否支持随机访问，支持则使用for循环遍历，不支持则使用迭代器
+	 *
 	 * @param list
 	 */
 	public void printAll(List<E> list) {
-		if(list instanceof RandomAccess) {
+		if (list instanceof RandomAccess) {
 			printAllUsingFor(list);
 		} else {
 			printAllUsingIterator(list);
@@ -73,25 +74,34 @@ public class Ergodic<E> {
 			add("王五");
 		}};
 
-		Ergodic<String> ergodic = getInstance();
+		for (int i = 0; i < 100000; i++) {
+			orderList.add("张三");
+			randomList.add("张三");
+		}
+
+			Ergodic<String> ergodic = getInstance();
 		//		ergodic.printAllUsingFor(orderList);
 		//		ergodic.printAllUsingFor(randomList);
 		//		ergodic.printAllUsingForEach(orderList);
 		//		ergodic.printAllUsingForEach(randomList);
 		//		ergodic.printAllUsingIterator(orderList);
 		//		ergodic.printAllUsingIterator(randomList)
-//
-//		System.out.println("顺序结构-For：" + getListErgodicRunningTime("printAllUsingFor", orderList));
-//		System.out.println("链式结构-For：" + getListErgodicRunningTime("printAllUsingFor", randomList));
-//
-//		System.out.println("顺序结构-ForEach：" + getListErgodicRunningTime("printAllUsingForEach",orderList));
-//		System.out.println("链式结构-ForEach：" + getListErgodicRunningTime("printAllUsingForEach",randomList));
-//
-//		System.out.println("顺序结构-迭代器：" + getListErgodicRunningTime("printAllUsingIterator",orderList));
-//		System.out.println("链式结构-迭代器：" + getListErgodicRunningTime("printAllUsingIterator",randomList));
-//
-		ergodic.printAll(orderList);
-		ergodic.printAll(randomList);
+
+		System.out.println("顺序结构-For：" + getListErgodicRunningTime("printAllUsingFor", orderList));
+		System.out.println("链式结构-For：" + getListErgodicRunningTime("printAllUsingFor", randomList));
+
+		System.out.println(
+				"顺序结构-ForEach：" + getListErgodicRunningTime("printAllUsingForEach", orderList));
+		System.out.println(
+				"链式结构-ForEach：" + getListErgodicRunningTime("printAllUsingForEach", randomList));
+
+		System.out.println(
+				"顺序结构-迭代器：" + getListErgodicRunningTime("printAllUsingIterator", orderList));
+		System.out.println(
+				"链式结构-迭代器：" + getListErgodicRunningTime("printAllUsingIterator", randomList));
+
+		//		ergodic.printAll(orderList);
+		//		ergodic.printAll(randomList);
 	}
 
 	public static String getListErgodicRunningTime(String methodName, Object param) {
