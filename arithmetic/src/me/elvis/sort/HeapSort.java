@@ -53,18 +53,21 @@ public class HeapSort implements SortTemplate {
 	 * @param index    当前需要创建最大堆的位置
 	 */
 	private void maxHeapify(Comparable[] data, int heapSize, int index) {
-		//当前点与左右子节点比较
+		// 当前点与左右子节点比较
 		int left = getChildLeftIndex(index);
 		int right = getChildRightIndex(index);
 
+		// 假定当前位置对应为最大值
 		int largest = index;
+		// 若左子节点大于最大值，则左子节点为最大值
 		if (left < heapSize && less(data[index], data[left])) {
 			largest = left;
 		}
+		// 若右子节点大于最大值，则右子节点为最大值
 		if (right < heapSize && less(data[largest], data[right])) {
 			largest = right;
 		}
-		//得到最大值后可能需要交换，如果交换了，其子节点可能就不是最大堆了，需要重新调整
+		// 得到最大值后可能需要交换，如果交换了，其子节点可能就不是最大堆了，需要重新调整
 		if (largest != index) {
 			exch(data, index, largest);
 			maxHeapify(data, heapSize, largest);

@@ -1,5 +1,6 @@
 package me.elvis.test;
 
+import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -11,10 +12,10 @@ public class TestEfficiency {
 	public static void main(String[] args)
 			throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 		System.out.println(
-				getRunTimeResults(TestEfficiency.class.getMethod("mod", int.class, int.class), 323,
+				getRunTimeResults(null,TestEfficiency.class.getMethod("mod", int.class, int.class), 323,
 						10));
 		System.out.println(
-				getRunTimeResults(TestEfficiency.class.getMethod("add", int.class, int.class), 321,
+				getRunTimeResults(null,TestEfficiency.class.getMethod("add", int.class, int.class), 321,
 						10));
 	}
 
@@ -26,11 +27,11 @@ public class TestEfficiency {
 		int c = a + b;
 	}
 
-	public static String getRunTimeResults(Method method, Object... args)
+	public static String getRunTimeResults(Object object,Method method, Object... args)
 			throws InvocationTargetException, IllegalAccessException {
 		long startTime = System.nanoTime();
 
-		method.invoke(null, args);
+		method.invoke(object, args);
 
 		long endTime = System.nanoTime();
 		long runTimeWithNS = endTime - startTime;
