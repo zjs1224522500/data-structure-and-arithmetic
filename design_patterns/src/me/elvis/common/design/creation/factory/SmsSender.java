@@ -5,8 +5,8 @@ package me.elvis.common.design.creation.factory;
  */
 public class SmsSender implements CommonInterfaceSender {
 
-	@Override
-	public void send() {
-		System.out.println("Sms send!");
-	}
+    @Override
+    public void sendMsg(String receiver) {
+        System.out.println(String.format("Send to %s by message", receiver));
+    }
 }

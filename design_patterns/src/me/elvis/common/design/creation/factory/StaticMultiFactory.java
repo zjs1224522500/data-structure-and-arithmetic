@@ -5,16 +5,16 @@ package me.elvis.common.design.creation.factory;
  */
 public class StaticMultiFactory {
 
-	public static CommonInterfaceSender produceMail() {
+	public static CommonInterfaceSender sendByMail() {
 		return new MailSender();
 	}
 
-	public static CommonInterfaceSender produceSms() {
+	public static CommonInterfaceSender sendByMessage() {
 		return new SmsSender();
 	}
 
 	public static void main(String[] args){
-	    CommonInterfaceSender sender = StaticMultiFactory.produceMail();
-	    sender.send();
+	    CommonInterfaceSender sender = StaticMultiFactory.sendByMail();
+	    sender.sendMsg("");
 	}
 }

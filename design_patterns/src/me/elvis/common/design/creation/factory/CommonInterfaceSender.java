@@ -5,5 +5,5 @@ package me.elvis.common.design.creation.factory;
  */
 public interface CommonInterfaceSender {
 
-	void send();
+	void sendMsg(String receiver);
 }
