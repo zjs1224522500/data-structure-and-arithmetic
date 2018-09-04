@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class OrdinaryFactory {
 
 
-<<<<<<< Updated upstream
     //如果传递的参数出错，则不能正确创建对象
     // 改进：多个工厂方法模式
     public CommonInterfaceSender sendMsg(int type) {
@@ -46,25 +45,4 @@ public class OrdinaryFactory {
         CommonInterfaceSender sender = ordinaryFactory.sendMsg(typeNo);
         sender.sendMsg(receiverName);
     }
-=======
-	// 如果传递的字符串出错，则不能正确创建对象
-	// 改进：多个工厂方法模式
-	public CommonInterfaceSender produce(String type) {
-		if ("mail".equals(type)) {
-			return new MailSender();
-		} else if ("sms".equals(type)) {
-			return new SmsSender();
-		} else {
-			System.out.println("Please check the type!");
-			return null;
-		}
-	}
-
-	public static void main(String[] args) {
-		// 使用时调用公共接口，传递相关参数即可创建对应的实例，无需关心实例的具体实现
-		OrdinaryFactory ordinaryFactory = new OrdinaryFactory();
-		CommonInterfaceSender sender = ordinaryFactory.produce("sms");
-		sender.send();
-	}
->>>>>>> Stashed changes
 }

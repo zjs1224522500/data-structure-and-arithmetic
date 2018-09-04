@@ -8,12 +8,7 @@ package me.elvis.common.design.creation.factory;
  */
 public class MultiFactory {
 
-<<<<<<< Updated upstream
 	public CommonInterfaceSender sendByMail() {
-=======
-
-	public CommonInterfaceSender produceMail() {
->>>>>>> Stashed changes
 		return new MailSender();
 	}
 

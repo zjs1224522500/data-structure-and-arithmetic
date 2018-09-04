@@ -1,11 +1,8 @@
 package me.elvis.collection;
 
-<<<<<<< Updated upstream
-=======
 import com.sun.corba.se.spi.ior.ObjectKey;
 
 
->>>>>>> Stashed changes
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
