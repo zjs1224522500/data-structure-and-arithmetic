@@ -25,12 +25,14 @@ public class TwoSum {
 
         new TwoSum().twoSumWithLoop(nums, target);
         new TwoSum().twoSumWithMap(nums, target);
+        new TwoSum().twoSumWithArray(nums, target);
     }
 
     /**
      * Use loop to add two of given num array.
      * And judge if target is equal to the sum result.
      * If equals, store the index of two numbers.
+     * Time O(n^2)
      *
      * @param nums
      * @param target
@@ -69,6 +71,28 @@ public class TwoSum {
                 return new int[]{i, data.get(complement)};
             }
             data.put(nums[i], i);
+        }
+        return null;
+    }
+
+    /**
+     * Best solution
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSumWithArray(int[] nums, int target){
+        int size = 2048;
+        int[] map = new int[size];
+        int length = 2047;
+        for (int i = 0; i < nums.length; i++) {
+            // It is equal to index = nums[i] % length
+            int index = nums[i] & length;
+            if (map[index] != 0) {
+                return new int[] {map[index] - 1, i};
+            } else {
+                map[(target - index) & length] = i + 1;
+            }
         }
         return null;
     }
