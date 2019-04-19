@@ -27,7 +27,7 @@ public class AddTwoNumbers {
           ListNode(int x) { val = x; }
     }
 
-    class Solution {
+    class SolutionOne {
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
             ListNode head = new ListNode(0);
@@ -37,7 +37,7 @@ public class AddTwoNumbers {
 
             // when x + y > 10, carry = 1, And it will be added to next value
             int carry = 0;
-            while(l1 != null || l2 != null)
+            while (l1 != null || l2 != null)
             {
                 int digitX = l1 == null ? 0 : l1.val;
                 int digitY = l2 == null ? 0 : l2.val;
@@ -62,6 +62,42 @@ public class AddTwoNumbers {
                 result.next = new ListNode(carry);
             }
             return head.next;
+        }
+    }
+
+    class SolutionTwo {
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            boolean carry = false;
+            ListNode result = new ListNode(0);
+            ListNode p = result;
+            while (l1 != null || l2 != null) {
+                int s = 0;
+                if (carry) {
+                    s = 1;
+                    carry = false;
+                }
+                int a = l1 == null ? 0 : l1.val;
+                int b = l2 == null ? 0 : l2.val;
+                s += a + b;
+                if (s >= 10) {
+                    carry = true;
+                    s %= 10;
+                }
+                p.next = new ListNode(s);
+                p = p.next;
+                if (l1 != null) {
+                    l1 = l1.next;
+
+                }
+                if (l2 != null) {
+                    l2 = l2.next;
+                }
+            }
+            if (carry) {
+                p.next = new ListNode(1);
+            }
+            return result.next;
+
         }
     }
 }

@@ -38,6 +38,25 @@ public class LongestSubstring {
      * Use hashSet to get the longest length of subString which start with char at index i.
      * And use Math.max and loop to calculate the max value.
      *
+     * Example:
+     *
+     * ---
+     * xxx    The xxx means the data which is in set.
+     * ---
+     *
+     * Process: loop
+     *
+     * i=0,j=2      i=0,j=3      i=1,j=3       i=2,j=3      i=3,j=3             i=3,j=6
+     * ---3          --            -                           -                   ----4
+     * asddsaffa -> asddsaffa -> asddsaffa ->  asddsaffa -> asddsaffa -> ... -> asddsaffa ->
+     * ---           --            -                           -                   ----
+     *
+     * i=3,j=7      i=4,j=7       i=5,j=7
+     *     ---           --
+     * asddsaffa -> asddsaffa ->
+     *     ---           --
+     *
+     *
      * @param s
      * @return
      */
@@ -55,6 +74,8 @@ public class LongestSubstring {
                 set.remove(s.charAt(i++));
             }
         }
+        System.out.println("i : " + i);
+        System.out.println("j : " + j);
         return maxLength;
     }
 
@@ -63,16 +84,21 @@ public class LongestSubstring {
      * Because when we find duplicate char, we can move index of header
      * to duplicate char first appear index + 1.Not header index + 1.
      *
+     * Example:
+     *
+     * asddsaffa -> Map (a,1->6->9) (s,2->5) (d,3->4) (f,7->8)
+     *
      * @param s
      * @return
      */
     public int lengthOfLongestSubstringUsingHashMap(String s) {
         int n = s.length(), ans = 0;
-        Map<Character, Integer> map = new HashMap<>(); // current index of character
+        // current index of character
+        Map<Character, Integer> map = new HashMap<>();
         // try to extend the range [i, j]
         for (int j = 0, i = 0; j < n; j++) {
             if (map.containsKey(s.charAt(j))) {
-                // compare i with map.value(next index of char which is different from key)
+                // compare i with map.value(length of current sub string)
                 // reduce loop times
                 i = Math.max(map.get(s.charAt(j)), i);
             }
@@ -80,7 +106,7 @@ public class LongestSubstring {
             // get the max length.
             ans = Math.max(ans, j - i + 1);
 
-            // next index of char which is different from charAt(j)
+            // key: char  value: length(index + 1)
             map.put(s.charAt(j), j + 1);
         }
         return ans;
@@ -93,7 +119,9 @@ public class LongestSubstring {
      */
     public int lengthOfLongestSubstringUsingASCII(String s) {
         int n = s.length(), ans = 0;
-        int[] index = new int[128]; // current index of character
+
+        // current index of character
+        int[] index = new int[128];
         // try to extend the range [i, j]
         for (int j = 0, i = 0; j < n; j++) {
             i = Math.max(index[s.charAt(j)], i);
