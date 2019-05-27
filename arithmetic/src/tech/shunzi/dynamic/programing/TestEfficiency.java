@@ -5,8 +5,12 @@ import java.lang.reflect.Method;
 
 /**
  * Version:v1.0 (description:  )
+ * @author I348910
  */
 public class TestEfficiency {
+
+    private final static Integer MAX_SECONDS = 100;
+    private final static Integer MIN_SECONDS = 1;
 
     public static void main(String[] args)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -40,11 +44,11 @@ public class TestEfficiency {
 
         String nsResult = "It costs " + runTimeWithNS + "ns!\n";
         String msResult = "It costs " + runTimeWithMS + "ms!\n";
-        String sResult = "It costs " + runTimeWithS + "s!\n";
 
         StringBuilder result = new StringBuilder();
-        if (runTimeWithS >= 1)
+        if (runTimeWithS >= MIN_SECONDS)
         {
+            String sResult = "It costs " + runTimeWithS + "s!\n";
             result.append(sResult);
         }
         else
@@ -53,7 +57,7 @@ public class TestEfficiency {
             result.append(nsResult);
         }
 
-        if (100 >= runTimeWithS && runTimeWithS >= 1)
+        if (MAX_SECONDS >= runTimeWithS && runTimeWithS >= MIN_SECONDS)
         {
             result.append(msResult);
         }
