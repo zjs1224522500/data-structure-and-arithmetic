@@ -1,4 +1,4 @@
-package me.elvis.collection;
+package me.elvis.data.type.collection;
 
 import java.util.HashMap;
 import java.util.Map;
